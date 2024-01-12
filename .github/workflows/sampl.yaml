@@ -1,7 +1,6 @@
 name: Matrix Job
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -20,7 +19,8 @@ jobs:
         id: read-values
         run: |
           VALUES=$(cat vas.txt)
-          echo "::set-output name=matrix::${VALUES}"
+          echo "Matrix: $VALUES"
+          echo "::set-output name=matrix::$VALUES"
 
   matrix-job:
     needs: read-file
