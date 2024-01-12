@@ -1,0 +1,39 @@
+name: Matrix Job
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read values from file
+        id: read-values
+        run: |
+          VALUES=$(cat vas.txt)
+          echo "::set-output name=matrix::${VALUES}"
+
+  matrix-job:
+    needs: read-file
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJson(needs.read-file.outputs.matrix)}}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run matrix job
+        run: |
+          echo "Processing value: ${{ matrix.value }}"
+          # Add your job steps here using ${{ matrix.value }} as the variable
