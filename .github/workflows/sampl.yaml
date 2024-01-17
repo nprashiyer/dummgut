@@ -20,7 +20,7 @@ jobs:
         run: |
           VALUES='[\"9.0.0\", \"11.0.0\"]'
           echo "Matrix: $VALUES"
-          echo "matrix=${{env.VERSIONS}}" >> $GITHUB_OUTPUT
+          echo "matrix=$VALUES" >> $GITHUB_OUTPUT
 
   matrix-job:
     needs: read-file
