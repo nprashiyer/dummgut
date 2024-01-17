@@ -18,9 +18,9 @@ jobs:
       - name: Read values from file
         id: read-values
         run: |
-          VALUES='[9.0.0, 11.0.0]'
+          VALUES='[\"9.0.0\", \"11.0.0\"]'
           echo "Matrix: $VALUES"
-          echo "matrix=$(jq -cr '@json' <<< "$VERSIONS")" >> $GITHUB_OUTPUT
+          echo "matrix=${{env.VERSIONS}}" >> $GITHUB_OUTPUT
 
   matrix-job:
     needs: read-file
