@@ -18,7 +18,7 @@ jobs:
       - name: Read values from file
         id: read-values
         run: |
-          VALUES=$(cat vas.txt)
+          VALUES="['9.0.0', '11.0.0']"
           echo "Matrix: $VALUES"
           echo "::set-output name=matrix::$VALUES"
 
