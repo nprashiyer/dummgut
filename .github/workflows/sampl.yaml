@@ -1,39 +1,20 @@
-name: Matrix Job
-
-on:
-  push:
-    branches:
-      - main
-
+name: Sample Run Include Syntax Json Format
+on: push
 jobs:
-  read-file:
+  job1:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
+       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Read values from file
-        id: read-values
+      - name: Set Dynamic Matrix
+        id: setmatrix
         run: |
-          VALUES='[\"9.0.0\", \"11.0.0\"]'
-          echo "Matrix: $VALUES"
-          echo "matrix=$VALUES" >> $GITHUB_OUTPUT
-
-  matrix-job:
-    needs: read-file
+           matrixStringifiedObject="{\"include\":[{\"run\":\"run1\"},{\"run\":\"run2\"}]}"
+           echo "::set-output name=matrix::$matrixStringifiedObject"
+  job2:
+    needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        value: ${{fromJson(needs.read-file.outputs.matrix)}}
-
+      matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run matrix job
-        run: |
-          echo "Processing value: ${{ matrix.value }}"
-          # Add your job steps here using ${{ matrix.value }} as the variable
+    - run: echo Run ${{ matrix.run }}
