@@ -1,0 +1,20 @@
+name: Differantiator
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Get changes made to files
+        id: matrix-generator
+        shell: bash
+        run: |
+          UPDATED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB HEAD^ HEAD -- *.yaml));
+          echo $UPDATED_FILES
