@@ -16,4 +16,4 @@ jobs:
         id: matrix-generator
         shell: bash
         run: |
-          git diff --name-only $GITHUB_SHA^..$GITHUB_SHA
+          git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }}
