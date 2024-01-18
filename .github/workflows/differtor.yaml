@@ -18,5 +18,5 @@ jobs:
         id: matrix-generator
         shell: bash
         run: |
-          git diff --name-only HEAD^ HEAD
+          git diff --name-only HEAD^ HEAD -- ./*.yaml
         
