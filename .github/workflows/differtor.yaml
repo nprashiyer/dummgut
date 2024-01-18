@@ -16,5 +16,5 @@ jobs:
         id: matrix-generator
         shell: bash
         run: |
-          UPDATED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --relative ${{ github.base_ref }} ${{ github.sha }} -- ./*.yaml));
+          UPDATED_FILES=($(git diff --name-only));
           echo $UPDATED_FILES
