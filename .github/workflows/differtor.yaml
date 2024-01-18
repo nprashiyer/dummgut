@@ -12,10 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 2
       
       - name: Get changes made to files
         id: matrix-generator
         shell: bash
         run: |
-          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} 
+          git diff --name-only HEAD^ HEAD
+        
