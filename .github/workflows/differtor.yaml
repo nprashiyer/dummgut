@@ -16,5 +16,4 @@ jobs:
         id: matrix-generator
         shell: bash
         run: |
-          UPDATED_FILES=($(git diff --name-only));
-          echo $UPDATED_FILES
+          git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }}
