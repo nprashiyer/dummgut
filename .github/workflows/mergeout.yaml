@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: Merge outputs
       id: merge_outputs
-      if: ${{ needs.vulnerability_scan.outputs.high_vulnerabilities == "true" }}
+      if: ${{ needs.vulnerability_scan.outputs.high_vulnerabilities == 'true' }}
       run: |
         echo "High vulnerabilities:"
         echo "${{ needs.vulnerability_scan.outputs.high_vulnerabilities }}"
