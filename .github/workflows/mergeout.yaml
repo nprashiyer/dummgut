@@ -23,7 +23,11 @@ jobs:
     - name: Check for vulnerabilities
       id: check_vulnerabilities
       run: |
-          echo "::set-output name=high_vulnerabilities::${{ matrix.image }}"
+        if [ "${{ matrix.image }}" == "image2" ]; then
+          echo "::set-output name=high_vulnerabilities::true"
+        else
+          echo "::set-output name=high_vulnerabilities::false"
+        fi
 
   merge_outputs:
     needs: vulnerability_scan
@@ -32,6 +36,7 @@ jobs:
     steps:
     - name: Merge outputs
       id: merge_outputs
+      if: ${{ needs.vulnerability_scan.outputs.high_vulnerabilities == "true" }}
       run: |
         echo "High vulnerabilities:"
         echo "${{ needs.vulnerability_scan.outputs.high_vulnerabilities }}"
