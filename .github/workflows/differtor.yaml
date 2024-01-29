@@ -2,7 +2,7 @@ name: Differantiator
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "feat" ]
 
 jobs:
   set-matrix:
